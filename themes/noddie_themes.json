@@ -1,0 +1,50 @@
+{
+    "Light": {
+        "bg": "white",
+        "fg": "black",
+        "menu_bg": "lightgray",
+        "menu_fg": "black"
+    },
+    "Dark": {
+        "bg": "gray25",
+        "fg": "white",
+        "menu_bg": "gray35",
+        "menu_fg": "white"
+    },
+    "Soft Blue": {
+        "bg": "#CCE6FF",
+        "fg": "black",
+        "menu_bg": "#66B3FF",
+        "menu_fg": "white"
+    },
+    "Soft Green": {
+        "bg": "#D3FFCE",
+        "fg": "black",
+        "menu_bg": "#00CC00",
+        "menu_fg": "white"
+    },
+    "Soft Purple": {
+        "bg": "#E0CCFF",
+        "fg": "black",
+        "menu_bg": "#B366FF",
+        "menu_fg": "white"
+    },
+    "Abyss": {
+        "bg": "#1E1E3F",
+        "fg": "#C6C6C6",
+        "menu_bg": "#2A2A5A",
+        "menu_fg": "#C6C6C6"
+    },
+    "High Contrast Dark": {
+        "bg": "#000000",
+        "fg": "#FFFFFF",
+        "menu_bg": "#000000",
+        "menu_fg": "#FFFFFF"
+    },
+    "Monokai": {
+        "bg": "#272822",
+        "fg": "#EC2572",
+        "menu_bg": "#272822",
+        "menu_fg": "#F8F8F2"
+    }
+}

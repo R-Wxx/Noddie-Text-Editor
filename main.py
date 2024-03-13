@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter.messagebox import *
 from tkinter.filedialog import *
 import os
+import json
 
 class Text_Editor:
     __root = Tk()
@@ -11,6 +12,7 @@ class Text_Editor:
     __windowHeight = 400
     __textArea = Text(__root)
     __menuBar = Menu(__root)
+    __theme_menu = Menu(__menuBar, tearoff=0)
 
     # menus in the menu bar
     __menuFile = Menu(__menuBar, tearoff=0)
@@ -20,7 +22,10 @@ class Text_Editor:
     # scrollbars
     __scrollBar = Scrollbar(__textArea)
     __file = None
-    
+
+    # Color themes
+    __color_themes = {}
+
     def __init__(self, **kwargs):
         # Setting Icon
         try:
@@ -67,6 +72,15 @@ class Text_Editor:
         self.__menuHelp.add_command(label='About', command=self.__about)
         self.__menuBar.add_cascade(label='Help', menu=self.__menuHelp)
 
+        # Load color themes from JSON file
+        self.load_color_themes("themes\\noddie_themes.json")
+
+        # Create theme menu
+        for theme_name in self.__color_themes:
+            self.__theme_menu.add_command(label=theme_name, command=lambda theme=theme_name: self.set_color_theme(theme))
+        
+        self.__menuBar.add_cascade(label='Themes', menu=self.__theme_menu)
+
         self.__root.config(menu=self.__menuBar)
         self.__scrollBar.pack(side=RIGHT, fill=Y)
 
@@ -76,6 +90,22 @@ class Text_Editor:
         # Keyboard shortcuts
         self.__root.bind('<Control-o>', self.__openFileShortcut)
         self.__root.bind('<Control-s>', self.__saveFileShortcut)
+
+    def load_color_themes(self, filename):
+        try:
+            with open(filename, "r") as file:
+                self.__color_themes = json.load(file)
+        except FileNotFoundError:
+            print("Color themes file not found.")
+        except Exception as e:
+            print("Error loading color themes:", e)
+
+    def set_color_theme(self, theme_name):
+        if theme_name in self.__color_themes:
+            theme = self.__color_themes[theme_name]
+            self.__root.config(bg=theme["bg"])
+            self.__textArea.config(bg=theme["bg"], fg=theme["fg"])
+            self.__menuBar.config(bg=theme["menu_bg"], fg=theme["menu_fg"])
 
     def __newFile(self):
         self.__root.title("Untitled - Noddie")
