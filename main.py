@@ -52,7 +52,7 @@ class Text_Editor:
 
         self.__textArea.grid(sticky=N+E+S+W)
 
-        self.__menuFile.add_command(label="New", command=self.__newFile)
+        self.__menuFile.add_command(label="New File", command=self.__newFile)
         self.__menuFile.add_command(label="Open", command=self.__openFile)
         self.__menuFile.add_command(label="Save", command=self.__saveFile)
         self.__menuFile.add_separator()
@@ -72,6 +72,10 @@ class Text_Editor:
 
         self.__scrollBar.config(command=self.__textArea.yview)
         self.__textArea.config(yscrollcommand=self.__scrollBar.set)
+
+        # Keyboard shortcuts
+        self.__root.bind('<Control-o>', self.__openFileShortcut)
+        self.__root.bind('<Control-s>', self.__saveFileShortcut)
 
     def __newFile(self):
         self.__root.title("Untitled - Noddie")
@@ -110,6 +114,12 @@ class Text_Editor:
             file = open(self.__file, "w")
             file.write(self.__textArea.get(1.0, END))
             file.close()
+
+    def __openFileShortcut(self, event):
+        self.__openFile()
+
+    def __saveFileShortcut(self, event):
+        self.__saveFile()
     
     def __quitApplication(self):
         self.__root.destroy()
